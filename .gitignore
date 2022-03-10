@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+pyvenv.cfg
+bin/*
+lib/*
+FNORD.txt
+pmec-app/__pycache__/
