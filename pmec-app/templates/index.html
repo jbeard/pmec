@@ -3,6 +3,7 @@
     <h1>Add Investor</h1>
     <form method="POST" action="/">
       <input type="text" name="firstname">
+      <input type="text" name="lastname">
       <input type="submit" value="Add">
     </form>
 
@@ -12,6 +13,9 @@
         <tr>
           <td>
             {{investor.firstname}}
+          </td>
+          <td>
+            {{investor.lastname}}
           </td>
           <td>
             <form method="POST" action="./update" style="display: inline">

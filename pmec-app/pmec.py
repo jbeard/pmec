@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 
 class Investor(db.Model):
     firstname = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    lastname = db.Column(db.String(80), unique=True, nullable=False, primary_key=False)
 
     def __repr__(self):
         return "<FirstName: {}>".format(self.firstname)
@@ -27,7 +28,7 @@ def home():
     investors = None
     if request.form:
         try:
-            investor = Investor(firstname=request.form.get("firstname"))
+            investor = Investor(firstname=request.form.get("firstname"),lastname=request.form.get("lastname"))
             db.session.add(investor)
             db.session.commit()
         except Exception as e:
