@@ -27,9 +27,10 @@ class Investor(db.Model):
     # should we have city here too?
     state = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
     zip = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    investorfile = db.Column(db.String(80), unique=False, nullable=True, primary_key=False)
 
     def __repr__(self):
-        return "<FirstName: {}>".format(self.firstname)
+        return "<FirstName: {}>".format(self.firstname)+"<LastName: {}>".format(self.lastname)
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -87,6 +88,13 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            try:
+                investor = Investor.query.filter_by(firstname=oldfirstname).first()
+                investor.investorfile = filename
+                db.session.commit()
+            except Exception as e:
+                print("ERROR: Failed to update Investor's uploaded filename")
+                print(e)
     return redirect("/")
 
 if __name__ == "__main__":
