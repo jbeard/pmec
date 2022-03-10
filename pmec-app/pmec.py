@@ -41,7 +41,7 @@ def home():
     investors = None
     if request.form:
         try:
-            investor = Investor( firstname=request.form.get("firstname"), lastname=request.form.get("lastname"), dob=request.form.get("dob"), phone=request.form.get("phone"), address=request.form.get("address"), state=request.form.get("state"), zip=request.form.get("zip") )
+            investor = Investor( firstname=request.form.get("firstname"), lastname=request.form.get("lastname"), dob=request.form.get("dob"), phone=request.form.get("phone"), address=request.form.get("address"), state=request.form.get("state"), zip=request.form.get("zip"), investorfile="none" )
             db.session.add(investor)
             db.session.commit()
         except Exception as e:
@@ -89,6 +89,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             try:
+                oldfirstname = request.form.get("oldfirstname")
                 investor = Investor.query.filter_by(firstname=oldfirstname).first()
                 investor.investorfile = filename
                 db.session.commit()
