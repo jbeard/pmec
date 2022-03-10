@@ -1,0 +1,3 @@
+
+An example dummy placeholder file for the upload directory.
+
