@@ -2,5 +2,5 @@
 pyvenv.cfg
 bin/*
 lib/*
-FNORD.txt
 pmec-app/__pycache__/
+pmec-app/*.db
