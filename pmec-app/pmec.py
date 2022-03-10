@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask import render_template
 from flask import request
+
 from flask_sqlalchemy import SQLAlchemy
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,7 +27,9 @@ def home():
         investor = Investor(firstname=request.form.get("firstname"))
         db.session.add(investor)
         db.session.commit()
-    return render_template("index.html")
+
+    investors = Investor.query.all()
+    return render_template("index.html", investors=investors)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)

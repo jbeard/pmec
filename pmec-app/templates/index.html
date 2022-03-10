@@ -5,5 +5,10 @@
       <input type="text" name="firstname">
       <input type="submit" value="Add">
     </form>
+
+    <h1>Investors</h1>
+    {% for investor in investors %}
+      <p>{{investor.firstname}}</p>
+    {% endfor %}
   </body>
 </html>
