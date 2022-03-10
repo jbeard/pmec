@@ -9,6 +9,11 @@
     <h1>Investors</h1>
     {% for investor in investors %}
       <p>{{investor.firstname}}</p>
+      <form method="POST" action="./update">
+        <input type="hidden" value="{{investor.firstname}}" name="oldfirstname">
+        <input type="text" value="{{investor.firstname}}" name="newfirstname">
+        <input type="submit" value="Update">
+      </form>
     {% endfor %}
   </body>
 </html>

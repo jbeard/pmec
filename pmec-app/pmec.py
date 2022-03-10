@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import redirect
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -30,6 +31,15 @@ def home():
 
     investors = Investor.query.all()
     return render_template("index.html", investors=investors)
+
+@app.route("/update", methods=["POST"])
+def update():
+    newfirstname = request.form.get("newfirstname")
+    oldfirstname = request.form.get("oldfirstname")
+    investor = Investor.query.filter_by(firstname=oldfirstname).first()
+    investor.firstname = newfirstname
+    db.session.commit()
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
