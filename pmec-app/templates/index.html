@@ -8,21 +8,67 @@
     <h1>Add Investor Form</h1>
     <h4>Please note all fields are required.</h4>
     <form method="POST" action="/">
-      <label>First Name :</label>
-      <input type="text" name="firstname">
-      <label>Last Name :</label>
-      <input type="text" name="lastname">
-      <input type="submit" value="Add">
+      <table>
+        <tr>
+          <td>
+            <label>First Name :</label>
+            <input type="text" name="firstname">
+          </td>
+          <td>
+            <label>Last Name :</label>
+            <input type="text" name="lastname">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Date of Birth :</label>
+            <input type="text" name="dob">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Phone Number :</label>
+            <input type="text" name="phone">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Street Address :</label>
+            <input type="text" name="address">
+          </td>
+          <td>
+            <label>State :</label>
+            <input type="text" name="state">
+          </td>
+          <td>
+            <label>Zip Code:</label>
+            <input type="text" name="zip">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="submit" value="Add">
+          </td>
+        </tr>
+      </table>
     </form>
     <h1>Investors</h1>
     <table>
       {% for investor in investors %}
         <tr>
           <td>
-            {{investor.firstname}}
+            <label>First Name :</label>
           </td>
           <td>
-            {{investor.lastname}}
+            <label>Last Name :</label>
+          </td>
+          <td>
+            <label>File Name :</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{investor.firstname}}
           </td>
           <td>
             <form method="POST" action="./update" style="display: inline">
@@ -30,6 +76,19 @@
               <input type="text" value="{{investor.firstname}}" name="newfirstname">
               <input type="submit" value="Update">
             </form>
+          </td>
+          <td>
+            {{investor.lastname}}
+          </td>
+          <td>
+            <form method="POST" action="./update" style="display: inline">
+              <input type="hidden" value="{{investor.lastname}}" name="oldlastname">
+              <input type="text" value="{{investor.lastname}}" name="newlastname">
+              <input type="submit" value="Update">
+            </form>
+          </td>
+          <td>
+            {{investor.filename}}
           </td>
           <td>
             <form method="POST" action="./delete" style="display: inline">
