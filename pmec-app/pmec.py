@@ -41,6 +41,14 @@ def update():
     db.session.commit()
     return redirect("/")
 
+@app.route("/delete", methods=["POST"])
+def delete():
+    firstname = request.form.get("firstname")
+    investor = Investor.query.filter_by(firstname=firstname).first()
+    db.session.delete(investor)
+    db.session.commit()
+    return redirect("/")
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
 
