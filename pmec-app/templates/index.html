@@ -7,17 +7,27 @@
     </form>
 
     <h1>Investors</h1>
-    {% for investor in investors %}
-      <p>{{investor.firstname}}</p>
-      <form method="POST" action="./update">
-        <input type="hidden" value="{{investor.firstname}}" name="oldfirstname">
-        <input type="text" value="{{investor.firstname}}" name="newfirstname">
-        <input type="submit" value="Update">
-      </form>
-      <form method="POST" action="./delete">
-        <input type="hidden" value="{{investor.firstname}}" name="firstname">
-        <input type="submit" value="Delete">
-      </form>
-    {% endfor %}
+    <table>
+      {% for investor in investors %}
+        <tr>
+          <td>
+            {{investor.firstname}}
+          </td>
+          <td>
+            <form method="POST" action="./update" style="display: inline">
+              <input type="hidden" value="{{investor.firstname}}" name="oldfirstname">
+              <input type="text" value="{{investor.firstname}}" name="newfirstname">
+              <input type="submit" value="Update">
+            </form>
+          </td>
+          <td>
+            <form method="POST" action="./delete" style="display: inline">
+              <input type="hidden" value="{{investor.firstname}}" name="firstname">
+              <input type="submit" value="Delete">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
   </body>
 </html>
