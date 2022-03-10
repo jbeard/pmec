@@ -4,10 +4,14 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 
+# this is the working directory of the project; not using more sophisticated filesystem management
 project_dir = os.path.dirname(os.path.abspath(__file__))
+# investor database name defined as hardcoded 'investor.db' here
 database_file = "sqlite:///{}".format(os.path.join(project_dir, "investor.db"))
 
+# this defines that uploads are made in a subdirectory of the project working directory
 UPLOAD_FOLDER = project_dir + "/upload"
+# limit filetypes to acceptable formats as a limited error prevention hedge
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
