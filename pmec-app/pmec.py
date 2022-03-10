@@ -18,8 +18,15 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 
 class Investor(db.Model):
-    firstname = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
-    lastname = db.Column(db.String(80), unique=True, nullable=False, primary_key=False)
+#    hash = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    firstname = db.Column(db.String(80), unique=False, nullable=False, primary_key=True)
+    lastname = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    dob = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    phone = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    address = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    # should we have city here too?
+    state = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    zip = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
 
     def __repr__(self):
         return "<FirstName: {}>".format(self.firstname)
@@ -33,7 +40,7 @@ def home():
     investors = None
     if request.form:
         try:
-            investor = Investor(firstname=request.form.get("firstname"),lastname=request.form.get("lastname"))
+            investor = Investor( firstname=request.form.get("firstname"), lastname=request.form.get("lastname"), dob=request.form.get("dob"), phone=request.form.get("phone"), address=request.form.get("address"), state=request.form.get("state"), zip=request.form.get("zip") )
             db.session.add(investor)
             db.session.commit()
         except Exception as e:
