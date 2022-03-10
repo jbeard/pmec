@@ -24,21 +24,29 @@ class Investor(db.Model):
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    investors = None
     if request.form:
-        investor = Investor(firstname=request.form.get("firstname"))
-        db.session.add(investor)
-        db.session.commit()
-
+        try:
+            investor = Investor(firstname=request.form.get("firstname"))
+            db.session.add(investor)
+            db.session.commit()
+        except Exception as e:
+            print("ERROR: Failed to add Investor")
+            print(e)
     investors = Investor.query.all()
     return render_template("index.html", investors=investors)
 
 @app.route("/update", methods=["POST"])
 def update():
-    newfirstname = request.form.get("newfirstname")
-    oldfirstname = request.form.get("oldfirstname")
-    investor = Investor.query.filter_by(firstname=oldfirstname).first()
-    investor.firstname = newfirstname
-    db.session.commit()
+    try:
+        newfirstname = request.form.get("newfirstname")
+        oldfirstname = request.form.get("oldfirstname")
+        investor = Investor.query.filter_by(firstname=oldfirstname).first()
+        investor.firstname = newfirstname
+        db.session.commit()
+    except Exception as e:
+        print("ERROR: Failed to update Investor")
+        print(e)
     return redirect("/")
 
 @app.route("/delete", methods=["POST"])
