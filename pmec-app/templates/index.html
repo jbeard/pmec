@@ -30,6 +30,12 @@
               <input type="submit" value="Delete">
             </form>
           </td>
+          <td>
+            <form method="POST" action="./upload" style="display: inline" enctype="multipart/form-data">
+              <input type="file" name="file">
+              <input type="submit" value="Upload">
+            </form>
+          </td>
         </tr>
       {% endfor %}
     </table>
