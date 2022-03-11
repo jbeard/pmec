@@ -69,6 +69,8 @@ EXTRA CREDIT INCOMPLETE (after alotted 2 hours):
 ADDITIONAL DESIRED FEATURES COMPLETED (after alotted 2 hours):
 
 * Built as a full CRUD app (create, retrieve, update, delete)
+* Limited file upload to only certain file extension types
+* Tried to prevent shenanigans with bad actor file uploads via Werkzeug 'secure_filename' utilities
 
 ---
 
