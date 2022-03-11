@@ -16,12 +16,14 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+# this TRACK_MODIFICATIONS flag squashes a warning that should be fixed
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db = SQLAlchemy(app)
 
 class Investor(db.Model):
+# ended up not using the hash which was intended to be a (probably) 'unique' key as an integer hash() of firstname+lastname+dob+zip; plan was to use it as the unique key and lookup as a hidden field in the form render
 #    hash = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
     firstname = db.Column(db.String(80), unique=False, nullable=False, primary_key=True)
     lastname = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
@@ -33,6 +35,7 @@ class Investor(db.Model):
     zip = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
     investorfile = db.Column(db.String(80), unique=False, nullable=True, primary_key=False)
 
+# should really improve the text serialization of the db model
     def __repr__(self):
         return "<FirstName: {}>".format(self.firstname)+"<LastName: {}>".format(self.lastname)
 
@@ -40,6 +43,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# each of the @app.route functions below is the endpoint for a form input
 @app.route("/", methods=["GET", "POST"])
 def home():
     investors = None
@@ -54,6 +58,7 @@ def home():
     investors = Investor.query.all()
     return render_template("index.html", investors=investors)
 
+# this uses a brutal hacky fixed attribute match for first & last name that should really be an iteration through the attribute list
 @app.route("/update", methods=["POST"])
 def update():
     try:
@@ -67,6 +72,7 @@ def update():
         print(e)
     return redirect("/")
 
+# I'm disappointed that two hours was not enough to do the lookup via hash here
 @app.route("/delete", methods=["POST"])
 def delete():
     firstname = request.form.get("firstname")
